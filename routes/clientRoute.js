@@ -20,3 +20,16 @@ router.get("/:id", (req, res) => {
 module.exports = router;
 
 */
+
+const express = require('express');
+const { inscrireClient, loginClient, majClient, supprimerClient } = require('../controllers/clientController');
+const { protect } = require('../middlewares/authMiddleware');
+
+const router = express.Router();
+
+router.post('/signup', inscrireClient);
+router.post('/login', loginClient);
+router.put('/:id', protect, majClient);
+router.delete('/:id', protect, supprimerClient);
+
+module.exports = router;

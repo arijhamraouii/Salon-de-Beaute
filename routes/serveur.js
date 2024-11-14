@@ -1,4 +1,5 @@
-
+//tousd les routes
+/*
 const express = require("express");
 
 // Initialisation de l'application Express
@@ -60,3 +61,6 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
+
+
+*/
