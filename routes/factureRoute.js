@@ -1,15 +1,11 @@
+// routes/factureRoutes.js
+const express = require('express');
+const router = express.Router();
+const factureController = require('../controllers/factureController');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-let express = require("express");
-let router = express.Router();
-
-// Exemple de route GET pour obtenir toutes les factures
-router.get("/", (req, res) => {
-  res.send("Liste de toutes les factures");
-});
-
-// Exemple de route POST pour créer une facture
-router.post("/add", (req, res) => {
-  res.send("Création d'une facture");
-});
+// Routes pour les factures
+router.post('/factures', authMiddleware.verifyAdmin, factureController.genererFacture); // générer une facture
+router.put('/factures/:id', authMiddleware.verifyClient, factureController.payerFacture); // payer une facture
 
 module.exports = router;

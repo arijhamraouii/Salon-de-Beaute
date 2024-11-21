@@ -1,15 +1,12 @@
+// routes/rendezvousRoutes.js
+const express = require('express');
+const router = express.Router();
+const rendezvousController = require('../controllers/rendezvousController');
+const authMiddleware = require('../middlewares/authMiddleware'); // pour protéger les routes
 
-let express = require("express");
-let router = express.Router();
-
-// Exemple de route GET pour obtenir tous les rendez-vous
-router.get("/", (req, res) => {
-  res.send("Liste de tous les rendez-vous");
-});
-
-// Exemple de route POST pour ajouter un rendez-vous
-router.post("/add", (req, res) => {
-  res.send("Ajout d'un rendez-vous");
-});
+// Routes pour les rendez-vous
+router.post('/rendezvous', authMiddleware.verifyClient, rendezvousController.planifierRendezvous); // planifier un rendez-vous
+router.put('/rendezvous/:id', authMiddleware.verifyClient, rendezvousController.modifierRendezvous); // modifier un rendez-vous
+router.delete('/rendezvous/:id', authMiddleware.verifyClient, rendezvousController.annulerRendezvous); // annuler un rendez-vous
 
 module.exports = router;
