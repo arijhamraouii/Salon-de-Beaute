@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuler le Rendez-vous</title>
+</head>
+<body>
+    <h1>Annuler le rendez-vous</h1>
+    <form action="/rendezvous/<%= rendezvous._id %>" method="POST">
+        <input type="hidden" name="_method" value="DELETE"> <!-- Pour indiquer que la méthode est DELETE -->
+
+        <p>Êtes-vous sûr de vouloir annuler le rendez-vous du client <%= rendezvous.clientName %> ?</p>
+        
+        <button type="submit">Annuler le rendez-vous</button>
+    </form>
+    <br>
+    <a href="/rendezvous">Retour à la liste des rendez-vous</a>
+</body>
+</html>
