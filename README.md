@@ -41,6 +41,34 @@ Les services communiquent directement avec la base de données **Salon-Beaute** 
 
 ---
 
+/salon-de-beaute
+  /controllers
+    - clientController.js
+    - employeController.js
+    - serviceController.js
+    - rendezvousController.js
+    - factureController.js
+  /models
+    - clientModel.js
+    - employeModel.js
+    - serviceModel.js
+    - rendezvousModel.js
+    - factureModel.js
+  /routes
+    - clientRoutes.js
+    - employeRoutes.js
+    - serviceRoutes.js
+    - rendezvousRoutes.js
+    - factureRoutes.js
+  /views
+    - index.ejs
+    - client.ejs
+    - employe.ejs
+    - service.ejs
+    - rendezvous.ejs
+    - facture.ejs
+
+
 ## 🚀 **Installation**
 
 ### 1. Clonez le Repository
