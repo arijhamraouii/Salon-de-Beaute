@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <header>
+<body class="bg-purple-50">
+
+    <!-- En-tête et barre de navigation -->
+    <header class="bg-purple-600 p-4 shadow-md">
         <nav>
-            <h1>Salon de Beauté - Back Office</h1>
-            <ul>
-                <li><a href="/dashboard">Dashboard</a></li>
-                <li><a href="/clients">Clients</a></li>
-                <li><a href="/rendezvous">Rendez-vous</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/employes">Employés</a></li>
-                <li><a href="/factures">Factures</a></li>
+            <ul class="flex justify-around items-center space-x-6">
+                <li><a href="/catalogues" class="text-white hover:text-purple-300">Catalogues</a></li>
+                <li><a href="/clients" class="text-white hover:text-purple-300">Clients</a></li>
+                <li><a href="/employes" class="text-white hover:text-purple-300">Employés</a></li>
+                <li><a href="/rendezvous" class="text-white hover:text-purple-300">Rendez-vous</a></li>
+                <li><a href="/factures" class="text-white hover:text-purple-300">Factures</a></li>
+                <li><a href="/logout" class="text-white hover:text-purple-300">Déconnexion</a></li>
             </ul>
         </nav>
-    </header>
+    </header>      
   
 </body>
 </html>

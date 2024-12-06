@@ -1,32 +1,36 @@
 // models/Rendezvous.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const Client = require("./Client");  // Vérifiez l'import ici
+const Employe = require("./Employe");
+const Catalogue = require("./Catalogue");
 
-const rendezvousSchema = new mongoose.Schema({
-  clientId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Client',
+const RendezvousSchema = new Schema({
+  client: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'Client', // Référence au modèle Client
     required: true
   },
-  employeId: {
-    type: mongoose.Schema.Types.ObjectId,
+  employe: { 
+    type: Schema.Types.ObjectId, 
     ref: 'Employe',
+    validate: {
+      validator: function(value) {
+        return mongoose.Types.ObjectId.isValid(value);
+      },
+      message: 'L\'ID de l\'employé n\'est pas valide'
+    }
+  },
+  date: { 
+    type: Date, 
     required: true
   },
-  serviceId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Service',
+  catalogue: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'Catalogue', 
     required: true
-  },
-  date: {
-    type: Date,
-    required: true
-  },
-  statut: {
-    type: String,
-    enum: ['confirmé', 'annulé', 'terminé'],
-    default: 'confirmé'
   }
-}, { timestamps: true });
+});
 
-const Rendezvous = mongoose.model('Rendezvous', rendezvousSchema);
+const Rendezvous = mongoose.model("Rendezvous", RendezvousSchema);
 module.exports = Rendezvous;

@@ -1,11 +1,11 @@
-// routes/factureRoutes.js
 const express = require('express');
 const router = express.Router();
 const factureController = require('../controllers/factureController');
-const authMiddleware = require('../middlewares/authMiddleware');
 
-// Routes pour les factures
-router.post('/factures', authMiddleware.verifyAdmin, factureController.genererFacture); // générer une facture
-router.put('/factures/:id', authMiddleware.verifyClient, factureController.payerFacture); // payer une facture
+router.get('/', factureController.afficherFactures);
+router.get('/ajouter', (req, res) => res.render('factures/ajouter'));
+
+router.post('/ajouter', factureController.ajouterFacture);
+router.get('/payer/:id', factureController.payerFacture);
 
 module.exports = router;

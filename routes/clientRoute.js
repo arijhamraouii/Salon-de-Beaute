@@ -1,35 +1,35 @@
-/*
-let express = require("express");
-let router = express.Router();
-
-// Exemple de route GET pour obtenir la liste des clients
-router.get("/", (req, res) => {
-  res.send("Liste de tous les clients");
-});
-
-// Exemple de route POST pour ajouter un client
-router.post("/add", (req, res) => {
-  res.send("Ajout d'un client");
-});
-
-// Exemple de route GET pour obtenir un client par ID
-router.get("/:id", (req, res) => {
-  res.send(`Informations sur le client avec l'ID ${req.params.id}`);
-});
-
-module.exports = router;
-
-*/
-
 const express = require('express');
-const { inscrireClient, loginClient, majClient, supprimerClient } = require('../controllers/clientController');
-const { protect } = require('../middlewares/authMiddleware');
-
 const router = express.Router();
+const clientController = require('../controllers/clientController');
+const Client = require('../models/Client');
 
-router.post('/signup', inscrireClient);
-router.post('/login', loginClient);
-router.put('/:id', protect, majClient);
-router.delete('/:id', protect, supprimerClient);
+// Route pour afficher tous les clients
+router.get('/', clientController.afficherClients);
+
+// Route pour afficher la page d'ajout d'un client
+router.get('/ajouter', (req, res) => res.render('clients/ajouter'));
+
+// Route pour ajouter un client (POST)
+router.post('/ajouter', clientController.ajouterClient);
+
+// Route pour afficher la page de modification d'un client (GET)
+router.get('/modifier/:id', async (req, res) => {
+    try {
+        const client = await Client.findById(req.params.id);
+        if (!client) {
+            return res.status(404).json({ error: "Client non trouvé" });
+        }
+        res.render('clients/modifier', { client });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erreur lors de la récupération du client pour modification." });
+    }
+});
+
+// Route pour modifier un client (POST)
+router.post('/modifier/:id', clientController.modifierClient);
+
+// Route pour supprimer un client
+router.get('/supprimer/:id', clientController.supprimerClient);
 
 module.exports = router;

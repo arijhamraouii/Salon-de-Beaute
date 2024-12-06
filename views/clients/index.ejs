@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body class="bg-purple-50">
+
+  <!-- Inclusion du Header -->
+  <%- include('../partials/header') %>
+
+  <!-- Conteneur principal -->
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-purple-600 mb-6">Clients</h1>
+
+    <!-- Bouton Ajouter un Client -->
+    <a href="/clients/ajouter" class="bg-purple-600 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 rounded-lg px-4 py-2 mb-6 inline-block">Ajouter un Client</a>
+
+    <!-- Liste des clients -->
+    <h2 class="text-2xl font-semibold text-purple-600 mb-4">Liste des Clients</h2>
+
+    <!-- Tableau des clients -->
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-purple-600 text-white">
+        <tr>
+          <th class="px-4 py-2 text-left">Nom</th>
+          <th class="px-4 py-2 text-left">Email</th>
+          <th class="px-4 py-2 text-left">Adresse</th>
+          <th class="px-4 py-2 text-left">Téléphone</th>
+          <th class="px-4 py-2 text-left">Rôle</th>
+          <th class="px-4 py-2 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Vérifier s'il y a des clients -->
+        <% if (clients && clients.length > 0) { %>
+          <!-- Itérer sur la liste des clients -->
+          <% clients.forEach(client => { %>
+            <tr class="border-t hover:bg-purple-100">
+              <td class="px-4 py-2"><%= client.nom %></td>
+              <td class="px-4 py-2"><%= client.email %></td>
+              <td class="px-4 py-2"><%= client.adresse %></td>
+              <td class="px-4 py-2"><%= client.telephone %></td>
+              <td class="px-4 py-2"><%= client.role %></td>
+              <td class="px-4 py-2">
+                <!-- Ajouter des actions pour modifier ou supprimer un client -->
+                <a href="/clients/editer/<%= client._id %>" class="text-blue-500 hover:underline">Modifier</a> |
+                <a href="/clients/supprimer/<%= client._id %>" class="text-red-500 hover:underline">Supprimer</a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr class="border-t">
+            <td class="px-4 py-2" colspan="6" class="text-center">Aucun client disponible.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Inclusion du Footer -->
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

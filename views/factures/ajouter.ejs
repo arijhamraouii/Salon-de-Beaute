@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajouter une Facture</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+
+<body class="bg-gray-50">
+  <%- include('../partials/header') %>
+
+  <!-- Conteneur du formulaire d'ajout de facture -->
+  <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+    <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Ajouter une Facture</h1>
+
+    <!-- Formulaire de création de facture -->
+    <form action="/factures/ajouter" method="POST" class="space-y-6">
+      
+      <!-- Sélectionner le rendez-vous -->
+      <div>
+        <label for="rendezvousId" class="block text-lg font-semibold text-gray-700">Rendez-vous:</label>
+        <select name="rendezvousId" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <% if (rendezvous && rendezvous.length > 0) { %>
+            <% rendezvous.forEach(rdv => { %>
+              <option value="<%= rdv._id %>">
+                <%= rdv.date %> - <%= rdv.client.nom %> <%= rdv.client.prenom %>
+              </option>
+            <% }) %>
+          <% } else { %>
+            <option disabled>Aucun rendez-vous disponible</option>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Montant -->
+      <div>
+        <label for="montant" class="block text-lg font-semibold text-gray-700">Montant:</label>
+        <input type="number" name="montant" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <!-- Statut -->
+      <div>
+        <label for="statut" class="block text-lg font-semibold text-gray-700">Statut:</label>
+        <select name="statut" class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option value="en attente">En attente</option>
+          <option value="payé">Payé</option>
+        </select>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <div>
+        <button type="submit" class="w-full p-3 mt-4 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          Ajouter la Facture
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+
+</html>

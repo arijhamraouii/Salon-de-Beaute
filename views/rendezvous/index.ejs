@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des Rendez-vous</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+
+<body class="bg-purple-50">
+
+  <!-- Inclusion du Header -->
+  <%- include('../partials/header') %>
+
+  <!-- Conteneur principal -->
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-purple-600 mb-6">Liste des Rendez-vous</h1>
+
+    <!-- Bouton Ajouter un Rendez-vous -->
+    <a href="/rendezvous/ajouter" class="bg-purple-600 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 rounded-lg px-4 py-2 mb-6 inline-block">Ajouter un Rendez-vous</a>
+
+    <!-- Tableau des Rendez-vous -->
+   <!-- Rendezvous index.ejs -->
+<table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+  <thead class="bg-purple-600 text-white">
+    <tr>
+      <th class="px-4 py-2 text-left">Date</th>
+      <th class="px-4 py-2 text-left">Client</th>
+      <th class="px-4 py-2 text-left">Employé</th>
+      <th class="px-4 py-2 text-left">Catalogue</th>
+      <th class="px-4 py-2 text-left">Statut</th>
+      <th class="px-4 py-2 text-left">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if (rendezvous.length > 0) { %>
+      <% rendezvous.forEach(rdv => { %>
+        <tr class="border-t hover:bg-purple-100">
+          <td class="px-4 py-2"><%= rdv.date.toLocaleString() %></td>
+          <td class="px-4 py-2"><%= rdv.client.nom %> <%= rdv.client.prenom %></td>
+          <td class="px-4 py-2"><%= rdv.employe.nom %> <%= rdv.employe.prenom %></td>
+          <td class="px-4 py-2"><%= rdv.catalogue.nom %></td>
+          <td class="px-4 py-2"><%= rdv.statut %></td>
+          <td class="px-4 py-2">
+            <a href="/rendezvous/modifier/<%= rdv._id %>" class="text-purple-600 hover:text-purple-800">Modifier</a>
+            <a href="/rendezvous/supprimer/<%= rdv._id %>" class="text-red-600 hover:text-red-800 ml-4">Supprimer</a>
+          </td>
+        </tr>
+      <% }) %>
+    <% } else { %>
+      <tr>
+        <td colspan="6" class="px-4 py-2 text-center text-purple-600">Aucun rendez-vous disponible.</td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+  </div>
+
+  <!-- Inclusion du Footer -->
+  <%- include('../partials/footer') %>
+
+</body>
+
+</html>

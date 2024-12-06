@@ -1,15 +1,15 @@
+const express = require('express');
+const router = express.Router();
+const employeController = require('../controllers/employeController');
 
-let express = require("express");
-let router = express.Router();
-
-// Exemple de route GET pour obtenir la liste des employés
-router.get("/", (req, res) => {
-  res.send("Liste de tous les employés");
+router.get('/', employeController.afficherEmployes);
+router.get('/ajouter', (req, res) => res.render('employes/ajouter'));
+router.post('/ajouter', employeController.ajouterEmploye);
+router.get('/modifier/:id', async (req, res) => {
+    const employe = await Employe.findById(req.params.id);
+    res.render('employes/modifier', { employe });
 });
-
-// Exemple de route POST pour ajouter un employé
-router.post("/add", (req, res) => {
-  res.send("Ajout d'un employé");
-});
+router.post('/modifier/:id', employeController.modifierEmploye);
+router.get('/supprimer/:id', employeController.supprimerEmploye);
 
 module.exports = router;

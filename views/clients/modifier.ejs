@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clients</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body class="bg-gray-50">
+    <%- include('../partials/header') %>
+    
+    <!-- Conteneur du formulaire de modification de client -->
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+        <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Modifier le Client</h1>
+
+        <!-- Formulaire de modification -->
+        <form action="clients/modifier/<%= client._id %>" method="POST" class="space-y-6">
+            
+            <!-- Nom -->
+            <div>
+                <label for="nom" class="block text-lg font-semibold text-gray-700">Nom:</label>
+                <input type="text" name="nom" value="<%= client.nom %>" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label for="email" class="block text-lg font-semibold text-gray-700">Email:</label>
+                <input type="email" name="email" value="<%= client.email %>" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Téléphone -->
+            <div>
+                <label for="telephone" class="block text-lg font-semibold text-gray-700">Téléphone:</label>
+                <input type="text" name="telephone" value="<%= client.telephone %>" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <!-- Bouton de soumission -->
+            <div>
+                <button type="submit" class="w-full p-3 mt-4 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Modifier
+                </button>
+            </div>
+        </form>
+    </div>
+    <%- include('../partials/footer') %>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajouter un Catalogue</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body class="bg-gray-100">
+  <%- include('../partials/header') %>
+  <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
+    <h1 class="text-3xl font-bold text-purple-600 mb-6">Ajouter un Nouveau Catalogue</h1>
+    
+    <form action="/catalogues/ajouter" method="POST" class="space-y-6">
+      <div>
+        <label for="nom" class="block text-lg font-semibold text-gray-700">Nom :</label>
+        <input type="text" id="nom" name="nom" required class="w-full border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+      </div>
+      <div>
+        <label for="description" class="block text-lg font-semibold text-gray-700">Description :</label>
+        <textarea id="description" name="description" required class="w-full border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+      </div>
+      <div>
+        <label for="prix" class="block text-lg font-semibold text-gray-700">Prix (dt) :</label>
+        <input type="number" id="prix" name="prix" step="0.01" required class="w-full border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+      </div>
+      <div>
+        <label for="promotion" class="block text-lg font-semibold text-gray-700">Promotion :</label>
+        <input type="text" id="promotion" name="promotion" class="w-full border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+      </div>
+      <div>
+        <label for="disponibilite" class="block text-lg font-semibold text-gray-700">Disponibilité :</label>
+        <select id="disponibilite" name="disponibilite" class="w-full border-2 border-purple-500 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <option value="true">Disponible</option>
+          <option value="false">Indisponible</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">Ajouter</button>
+    </form>
+  </div>
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

@@ -1,48 +1,56 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');  // Utilisation de bcryptjs pour le hachage du mot de passe
-const jwt = require('jsonwebtoken'); // Utilisation de jsonwebtoken pour générer un token JWT
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-// Définir le schéma pour l'utilisateur
-const userSchema = new mongoose.Schema({
-  name: { 
+const UserSchema = new Schema({
+  nom: { 
     type: String, 
-    required: false // Le champ "name" nest pas requis
+    required: true,
+    minlength: [2, 'Le nom doit comporter au moins 2 caractères'],
+    maxlength: [50, 'Le nom doit comporter au maximum 50 caractères']
+  },
+  prenom: { 
+    type: String, 
+    required: true,
+    minlength: [2, 'Le prénom doit comporter au moins 2 caractères'],
+    maxlength: [50, 'Le prénom doit comporter au maximum 50 caractères']
+  },
+  telephone: { 
+    type: String, 
+    required: true, 
+    unique: true,
+    validate: {
+      validator: function(value) {
+        return /^[+33]{3}\s[0-9]{1}\s[0-9]{2}\s[0-9]{2}\s[0-9]{2}\s[0-9]{2}$/.test(value);
+      },
+      message: 'Le numéro de téléphone doit être au format +33 X XX XX XX XX'
+    }
   },
   email: { 
     type: String, 
     required: true, 
-    unique: true // Le champ "email" est unique
+    unique: true,
+    validate: {
+      validator: function(value) {
+        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
+      },
+      message: 'L\'email doit être au format valide'
+    }
   },
   password: { 
     type: String, 
-    required: true // Le champ "password" est requis
+    required: true,
+    minlength: [6, 'Le mot de passe doit comporter au moins 6 caractères'],
+    maxlength: [100, 'Le mot de passe doit comporter au maximum 100 caractères']
   },
   role: { 
     type: String, 
-    enum: ['client', 'employe', 'admin'],  // Les rôles autorisés
-    default: 'client'  // Le rôle par défaut est "client"
+    enum: ['client', 'employe', 'admin'], 
+    required: true 
   }
+}, {
+  discriminatorKey: 'role',
+  timestamps: true
 });
 
-// Middleware pour hacher le mot de passe avant de sauvegarder l'utilisateur
-userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next(); // Si le mot de passe n'a pas été modifié, on passe à la suite
-  const salt = await bcrypt.genSalt(10);  // Générer un "salt" pour le hachage
-  this.password = await bcrypt.hash(this.password, salt); // Hacher le mot de passe
-  next(); // Continuer l'enregistrement
-});
-
-// Méthode pour comparer les mots de passe (le mot de passe entré et celui dans la base de données)
-userSchema.methods.comparePassword = async function(candidatePassword) {
-  return await bcrypt.compare(candidatePassword, this.password); // Comparer le mot de passe entré avec celui haché
-};
-
-// Méthode pour générer un token JWT
-userSchema.methods.generateAuthToken = function () {
-  const payload = { id: this._id, role: this.role };
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }); // Le token expire dans 1 heure
-};
-
-const User = mongoose.model('User', userSchema);
-
+const User = mongoose.model("User", UserSchema);
 module.exports = User;

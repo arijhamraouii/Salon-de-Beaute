@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Employés</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body class="bg-purple-50">
+
+  <!-- Inclusion du Header -->
+  <%- include('../partials/header') %>
+
+  <!-- Conteneur principal -->
+  <div class="max-w-7xl mx-auto p-6">
+    <h1 class="text-3xl font-bold text-purple-600 mb-6">Liste des Employés</h1>
+
+    <!-- Bouton Ajouter un Employé -->
+    <a href="/employes/ajouter" class="bg-purple-600 text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 rounded-lg px-4 py-2 mb-6 inline-block">Ajouter un Employé</a>
+
+    <!-- Tableau des Employés -->
+    <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+      <thead class="bg-purple-600 text-white">
+        <tr>
+          <th class="px-4 py-2 text-left">Nom</th>
+          <th class="px-4 py-2 text-left">Prénom</th>
+          <th class="px-4 py-2 text-left">Spécialité</th>
+          <th class="px-4 py-2 text-left">Disponibilités</th>
+          <th class="px-4 py-2 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (employes.length > 0) { %>
+          <% employes.forEach(employe => { %>
+            <tr class="border-t hover:bg-purple-100">
+              <td class="px-4 py-2"><%= employe.nom %></td>
+              <td class="px-4 py-2"><%= employe.prenom %></td>
+              <td class="px-4 py-2"><%= employe.specialite %></td>
+              <td class="px-4 py-2">
+                <% employe.disponibilites.forEach(dispo => { %>
+                  <p><%= dispo %></p>
+                <% }) %>
+              </td>
+              <td class="px-4 py-2">
+                <a href="/employes/modifier/<%= employe._id %>" class="text-purple-600 hover:text-purple-800 mr-4">Modifier</a>
+                <a href="/employes/supprimer/<%= employe._id %>" class="text-red-600 hover:text-red-800">Supprimer</a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="5" class="px-4 py-2 text-center text-purple-600">Aucun employé disponible.</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Inclusion du Footer -->
+  <%- include('../partials/footer') %>
+
+</body>
+</html>

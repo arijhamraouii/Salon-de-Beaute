@@ -1,25 +1,40 @@
-// controllers/factureController.js
 const Facture = require('../models/Facture');
 
-// Générer une facture pour un rendez-vous
-exports.genererFacture = async (req, res) => {
-  try {
-    const { rendezvousId, montant } = req.body;
-    const nouvelleFacture = new Facture({ rendezvousId, montant });
-    await nouvelleFacture.save();
-    res.status(201).json({ message: "Facture générée", facture: nouvelleFacture });
-  } catch (error) {
-    res.status(400).json({ error: "Erreur lors de la génération de la facture", details: error });
-  }
+/// Afficher toutes les factures
+exports.afficherFactures = async (req, res) => {
+    try {
+        // Récupération des factures avec les rendez-vous associés
+        const factures = await Facture.find().populate('rendezvousId'); // Peupler avec les données du rendez-vous
+        res.render('factures/index', { factures });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Erreur lors de l'affichage des factures." });
+    }
 };
+
+
+// Ajouter une facture
+exports.ajouterFacture = async (req, res) => {
+    try {
+        const { rendezvousId, montant, statut } = req.body;
+        const nouvelleFacture = new Facture({ rendezvousId, montant, statut });
+        await nouvelleFacture.save();
+        res.redirect('factures/ajouter');
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors de l'ajout de la facture." });
+    }
+};
+
+
+
 
 // Payer une facture
 exports.payerFacture = async (req, res) => {
-  try {
-    const facture = await Facture.findByIdAndUpdate(req.params.id, { statut: 'payé' }, { new: true });
-    if (!facture) return res.status(404).json({ error: "Facture non trouvée" });
-    res.status(200).json({ message: "Facture payée", facture });
-  } catch (error) {
-    res.status(400).json({ error: "Erreur lors du paiement de la facture", details: error });
-  }
+    try {
+        const { id } = req.params;
+        await Facture.findByIdAndUpdate(id, { statut: 'payé' });
+        res.redirect('factures/modifier');
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors du paiement de la facture." });
+    }
 };

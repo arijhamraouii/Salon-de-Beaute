@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier le Rendez-vous</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles/main.css">
+</head>
+<body class="bg-gray-50">
+    <%- include('../partials/header') %>
+
+    <!-- Conteneur du formulaire de modification du rendez-vous -->
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+        <h1 class="text-3xl font-bold text-center mb-6 text-blue-600">Modifier le Rendez-vous</h1>
+
+        <!-- Formulaire de modification de rendez-vous -->
+        <form action="/rendezvous/modifier/<%= rendezvous._id %>" method="POST" class="space-y-6">
+
+            <!-- Sélection du client -->
+            <div>
+                <label for="client" class="block text-lg font-semibold text-gray-700">Client :</label>
+                <select name="clientId" id="client" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <% clients.forEach(client => { %>
+                        <option value="<%= client._id %>" <%= client._id.toString() === rendezvous.client.toString() ? 'selected' : '' %>><%= client.nom %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <!-- Sélection de l'employé -->
+            <div>
+                <label for="employe" class="block text-lg font-semibold text-gray-700">Employé :</label>
+                <select name="employeId" id="employe" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <% employes.forEach(employe => { %>
+                        <option value="<%= employe._id %>" <%= employe._id.toString() === rendezvous.employe.toString() ? 'selected' : '' %>><%= employe.nom %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <!-- Sélection de la date -->
+            <div>
+                <label for="date" class="block text-lg font-semibold text-gray-700">Date :</label>
+                <input type="datetime-local" id="date" name="date" value="<%= rendezvous.date.toISOString().slice(0, 16) %>" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+
+            <!-- Sélection du catalogue -->
+            <div>
+                <label for="catalogue" class="block text-lg font-semibold text-gray-700">Catalogue :</label>
+                <select name="catalogue" id="catalogue" required class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <% catalogues.forEach(catalogue => { %>
+                        <option value="<%= catalogue._id %>" <%= catalogue._id.toString() === rendezvous.catalogue.toString() ? 'selected' : '' %>><%= catalogue.nom %></option>
+                    <% }) %>
+                </select>
+            </div>
+
+            <!-- Sélection du statut -->
+            <div>
+                <label for="statut" class="block text-lg font-semibold text-gray-700">Statut :</label>
+                <select name="statut" id="statut" class="w-full p-3 border-2 border-blue-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="en attente" <%= rendezvous.statut === 'en attente' ? 'selected' : '' %>>En attente</option>
+                    <option value="confirmé" <%= rendezvous.statut === 'confirmé' ? 'selected' : '' %>>Confirmé</option>
+                </select>
+            </div>
+
+            <!-- Bouton de soumission -->
+            <div>
+                <button type="submit" class="w-full p-3 mt-4 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Enregistrer les modifications
+                </button>
+            </div>
+        </form>
+    </div>
+    <%- include('../partials/footer') %>
+
+</body>
+</html>
