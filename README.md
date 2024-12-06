@@ -44,8 +44,9 @@ Les services communiquent directement avec la base de données **Salon-Beaute** 
 Voici un diagramme de l'architecture :
 
 ```mermaid
+
 graph TD;
-    A[Utilisateur] -->|Interagit avec l'interface| B[Frontend (Bootstrap + CSS)];
+    A[Utilisateur] -->|Interagit avec l'interface| B[Frontend (Bootstrap + CSS + EJS)];
     B --> C[Backend (Node.js + Express)];
     C --> D{Services};
     D --> E[Service Client];
