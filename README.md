@@ -1,6 +1,6 @@
 # 💅 **Salon de Beauté - Gestion des Clients, Employés, Rendez-vous, Services et Factures**
 
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white) ![CSS](https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![EJS](https://img.shields.io/badge/EJS-5D5F5F?style=for-the-badge&logo=ejs&logoColor=white)
 
 ---
 
@@ -41,25 +41,6 @@ Les services communiquent directement avec la base de données **Salon-Beaute** 
 
 ---
 
-Voici un diagramme de l'architecture :
-
-```mermaid
-
-graph TD;
-    A[Utilisateur] -->|Interagit avec l'interface| B[Frontend (Bootstrap + CSS + EJS)];
-    B --> C[Backend (Node.js + Express)];
-    C --> D{Services};
-    D --> E[Service Client];
-    D --> F[Service Employé];
-    D --> G[Service Rendez-vous];
-    D --> H[Service Facture];
-    E --> I[MongoDB - Clients];
-    F --> J[MongoDB - Employés];
-    G --> K[MongoDB - Rendez-vous];
-    H --> L[MongoDB - Factures];
-
----
-
 ## 🚀 **Installation**
 
 ### 1. Clonez le Repository
@@ -67,7 +48,3 @@ graph TD;
 ```bash
 git clone https://github.com/votre-utilisateur/salon-de-beaute.git
 cd salon-de-beaute
-
----
-
-
