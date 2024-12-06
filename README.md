@@ -1,26 +1,15 @@
 graph TD;
-    A[Postman] -->|JSON Requests| B[Express.js Backend]
-    B --> C{Routing};
-    C --> D[Client Management Controller];
-    C --> E[Employee Management Controller];
-    C --> F[Appointment Management Controller];
-    C --> G[Invoice Management Controller];
-    C --> H[Authentication Controller];
-    D --> I[Client Model];
-    E --> J[Employee Model];
-    F --> K[Appointment Model];
-    G --> L[Invoice Model];
-    H --> M[User Model];
-    I --> N[MongoDB Database];
-    J --> N;
-    K --> N;
-    L --> N;
-    M --> N;
-    B --> O[JWT Authentication];
-    O --> P[JWT Secret Key];
-    P --> Q[.env Configuration];
-    N --> R[MongoDB Compass];
-
-    classDef service fill:#6DB33F,stroke:#333,stroke-width:2px;
-    class A,B,C,D,E,F,G,H service;
-    class I,J,K,L,M,N service;
+    A[Client (Front-end)] -->|HTTP Requests| B[Routeur Express]
+    B --> C{Service de Gestion};
+    C --> D[Service des Clients];
+    C --> E[Service des Employés];
+    C --> F[Service des Rendez-vous];
+    C --> G[Service des Factures];
+    D --> H[Base de données MongoDB];
+    E --> H;
+    F --> H;
+    G --> H;
+    H --> I[Email Service (Nodemailer)];
+    C --> J[Authentification JWT];
+    J --> K[Token sécurisé];
+    K --> L[Client (Front-end)];
