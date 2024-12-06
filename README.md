@@ -20,9 +20,13 @@
 
 ## 🛠️ **Architecture du Projet**
 
-L'architecture repose sur une **architecture monolithique** avec un backend qui gère plusieurs services via **Express.js**. Chaque fonctionnalité (client, employé, service, rendez-vous, facture) est gérée par un service spécifique.
+L'architecture repose sur une **architecture monolithique** avec un backend structuré en **contrôleurs** et **modèles**. 
+
+- **Contrôleurs** : Chaque fonctionnalité (client, employé, service, rendez-vous, facture) dispose d'un contrôleur dédié. Les contrôleurs sont responsables de la gestion des requêtes HTTP, de la validation des données et de l'appel aux modèles pour interagir avec la base de données.
   
-Les services communiquent directement avec la base de données **Salon-Beaute** pour les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer).
+- **Modèles** : Les modèles définissent la structure des données et contiennent la logique pour interagir avec la base de données **MongoDB**. Chaque modèle correspond à une entité du système (par exemple, `Client`, `Employe`, `Service`, `Rendezvous`, `Facture`) et fournit des méthodes pour effectuer les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer).
+
+Les **contrôleurs** font appel aux **modèles** pour effectuer des actions sur la base de données, telles que la récupération, l'insertion ou la mise à jour des informations. L'API REST est construite autour de ces interactions.
 
 ---
 
@@ -40,33 +44,6 @@ Les services communiquent directement avec la base de données **Salon-Beaute** 
   - **Postman** pour tester les endpoints de l'API.
 
 ---
-
-/salon-de-beaute
-  /controllers
-    - clientController.js
-    - employeController.js
-    - serviceController.js
-    - rendezvousController.js
-    - factureController.js
-  /models
-    - clientModel.js
-    - employeModel.js
-    - serviceModel.js
-    - rendezvousModel.js
-    - factureModel.js
-  /routes
-    - clientRoutes.js
-    - employeRoutes.js
-    - serviceRoutes.js
-    - rendezvousRoutes.js
-    - factureRoutes.js
-  /views
-    - index.ejs
-    - client.ejs
-    - employe.ejs
-    - service.ejs
-    - rendezvous.ejs
-    - facture.ejs
 
 
 ## 🚀 **Installation**
