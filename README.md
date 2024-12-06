@@ -41,17 +41,6 @@ Les services communiquent directement avec la base de données **Salon-Beaute** 
 
 ---
 
-
-
-## 🚀 **Installation**
-
-### 1. Clonez le Repository
-
-```bash
-git clone https://github.com/votre-utilisateur/salon-de-beaute.git
-cd salon-de-beaute
-
-
 Voici un diagramme de l'architecture :
 
 ```mermaid
@@ -67,3 +56,17 @@ graph TD;
     F --> J[MongoDB - Employés];
     G --> K[MongoDB - Rendez-vous];
     H --> L[MongoDB - Factures];
+
+---
+
+## 🚀 **Installation**
+
+### 1. Clonez le Repository
+
+```bash
+git clone https://github.com/votre-utilisateur/salon-de-beaute.git
+cd salon-de-beaute
+
+---
+
+
